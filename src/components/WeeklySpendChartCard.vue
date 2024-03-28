@@ -1,35 +1,118 @@
-<script setup lang="ts">
+<script setup lang="js">
 import Chart from "chart.js/auto";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 
-const props = defineProps({
-  datas: [Object],
+const props = defineProps(["weeklydatas"]);
+let dataSet = ref([])
+let dayName = ref([])
+let setPadding = ref(0)
+let setBarThickness = ref(30)
+
+props.weeklydatas.map((data) => dataSet.value.push(data.amount))
+props.weeklydatas.map((data) => dayName.value.push(data.day))
+const windowsWidth = ref(window.innerWidth);
+
+// Fonction pour mettre à jour windowsWidth
+const updateWindowsWidth = () => {
+  windowsWidth.value = window.innerWidth;
+};
+watch(() => windowsWidth.value, () => {
+  if (windowsWidth.value >= 1024) {
+    setPadding.value = 20;
+    setBarThickness.value = 60;
+  } else if (windowsWidth.value >= 768 && windowsWidth.value < 1024) {
+    setPadding.value = 0;
+    setBarThickness.value = 40;
+  } else {
+    setPadding.value = 0;
+    setBarThickness.value = 20;
+  }
+  console.log(setPadding.value, setBarThickness.value);
 });
-const dimensions = ref();
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateWindowsWidth);
+});
+
 onMounted(() => {
-  const ctx = dimensions.value.getContext("2d");
+
+  const ctx = document.getElementById("dimensions");
+  window.addEventListener('resize', updateWindowsWidth);
+
   new Chart(ctx, {
     type: "bar",
     data: {
-      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      labels: dayName.value,
       datasets: [
         {
-          data: props.datas.map((data) => data.amount),
-          backgroundColor: "rgba(255, 99, 132, 0.5)",
+          data: dataSet.value,
+          label: '',
+          backgroundColor: [
+          "hsl(10, 79%, 65%)"
+          ],
+          hoverBackgroundColor: [
+            "hsl(186, 34%, 60%)"
+          ],
+          padding: setPadding.value,
+          borderColor: "transparent",
+          barThickness: setBarThickness.value,
+          borderRadius: 7,
         },
       ],
     },
+    options: {
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+           displayColors: false,
+                callbacks: {
+                  title: function() {
+                    return '';
+                  },
+                    label: function(context) {
+                        let label = context.dataset.label;
+                        if (context.parsed.y !== null) {
+                            label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                        }
+                        return label;
+                    }
+                }
+            }
+      },
+      scales: {
+        y: {
+          display: false,
+          beginAtZero: true,
+          grid: {
+            display: false,
+          }
+        },
+        x: {
+          display: true,
+          grid: {
+            display: false,
+          }
+        },
+      },
+    },
   });
-});
+})
 </script>
 <template>
-  <div class="chart"><canvas id="dimensions"></canvas></div>
+  <div class="chart">
+    <canvas id="dimensions"></canvas>
+  </div>
 </template>
 
 <style scoped>
 .chart {
-  height: 15rem;
-  width: 75%;
-  background: #000;
+  width: 100%;
+  height: 100%;
+  border-bottom: 2.5px solid var(--vt-c-cream);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

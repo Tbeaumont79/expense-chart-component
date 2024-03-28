@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  chart.js:
-    specifier: ^4.4.2
-    version: 4.4.2
   vue:
     specifier: ^3.4.21
     version: 3.4.21
@@ -16,6 +13,9 @@ devDependencies:
   '@vitejs/plugin-vue':
     specifier: ^5.0.4
     version: 5.0.4(vite@5.2.6)(vue@3.4.21)
+  chart.js:
+    specifier: ^4.4.2
+    version: 4.4.2
   vite:
     specifier: ^5.1.6
     version: 5.2.6
@@ -257,7 +257,7 @@ packages:
 
   /@kurkle/color@0.3.2:
     resolution: {integrity: sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==}
-    dev: false
+    dev: true
 
   /@rollup/rollup-android-arm-eabi@4.13.1:
     resolution: {integrity: sha512-4C4UERETjXpC4WpBXDbkgNVgHyWfG3B/NKY46e7w5H134UDOFqUJKpsLm0UYmuupW+aJmRgeScrDNfvZ5WV80A==}
@@ -455,7 +455,7 @@ packages:
     engines: {pnpm: '>=8'}
     dependencies:
       '@kurkle/color': 0.3.2
-    dev: false
+    dev: true
 
   /csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}

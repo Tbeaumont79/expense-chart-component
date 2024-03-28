@@ -43,4 +43,21 @@ img {
   height: 4rem;
   width: 4rem;
 }
+
+@media screen and (min-width: 768px) {
+  .balance_card {
+    width: 30rem;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .balance_card {
+    width: 30rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  p {
+    font-size: 2rem;
+  }
+}
 </style>
