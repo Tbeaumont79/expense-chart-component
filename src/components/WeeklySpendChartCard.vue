@@ -5,29 +5,24 @@ import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 const props = defineProps(["weeklydatas"]);
 let dataSet = ref([])
 let dayName = ref([])
-let setPadding = ref(0)
 let setBarThickness = ref(30)
 
 props.weeklydatas.map((data) => dataSet.value.push(data.amount))
 props.weeklydatas.map((data) => dayName.value.push(data.day))
 const windowsWidth = ref(window.innerWidth);
 
-// Fonction pour mettre à jour windowsWidth
 const updateWindowsWidth = () => {
   windowsWidth.value = window.innerWidth;
 };
 watch(() => windowsWidth.value, () => {
   if (windowsWidth.value >= 1024) {
-    setPadding.value = 20;
-    setBarThickness.value = 60;
+    setBarThickness.value = 40;
   } else if (windowsWidth.value >= 768 && windowsWidth.value < 1024) {
-    setPadding.value = 0;
     setBarThickness.value = 40;
   } else {
-    setPadding.value = 0;
-    setBarThickness.value = 20;
+    setBarThickness.value = 10;
   }
-  console.log(setPadding.value, setBarThickness.value);
+  console.log( setBarThickness.value);
 });
 
 onBeforeUnmount(() => {
@@ -41,6 +36,7 @@ onMounted(() => {
 
   new Chart(ctx, {
     type: "bar",
+    maintainAspectRatio: true,
     data: {
       labels: dayName.value,
       datasets: [
@@ -53,7 +49,6 @@ onMounted(() => {
           hoverBackgroundColor: [
             "hsl(186, 34%, 60%)"
           ],
-          padding: setPadding.value,
           borderColor: "transparent",
           barThickness: setBarThickness.value,
           borderRadius: 7,
@@ -61,6 +56,7 @@ onMounted(() => {
       ],
     },
     options: {
+      responsive: true,
       plugins: {
         legend: {
           display: false,
@@ -78,7 +74,7 @@ onMounted(() => {
                         }
                         return label;
                     }
-                }
+                },
             }
       },
       scales: {
@@ -109,10 +105,19 @@ onMounted(() => {
 <style scoped>
 .chart {
   width: 100%;
-  height: 100%;
   border-bottom: 2.5px solid var(--vt-c-cream);
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3rem;
+  height: 25rem;
 }
+
+@media screen and (min-width: 1024px) {
+  .chart {
+    margin-bottom: 1.5rem;
+  }
+}
+
+
 </style>

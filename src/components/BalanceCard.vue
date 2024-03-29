@@ -5,7 +5,7 @@
       <h2>My balance</h2>
       <p>$921.48</p>
     </div>
-    <img src="../assets/Images/logo.svg" alt="" />
+    <img src="/Images/logo.svg" alt="" />
   </div>
 </template>
 
@@ -46,7 +46,7 @@ img {
 
 @media screen and (min-width: 768px) {
   .balance_card {
-    width: 30rem;
+    width: 20rem;
   }
 }
 @media screen and (min-width: 1440px) {

@@ -104,8 +104,8 @@ p {
 
 @media screen and (min-width: 768px) {
   .spending_card {
-    width: 30rem;
-    height: 30rem;
+    width: 20rem;
+    height: 25rem;
   }
 }
 
