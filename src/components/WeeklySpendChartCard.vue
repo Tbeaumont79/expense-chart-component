@@ -16,7 +16,7 @@ const updateWindowsWidth = () => {
 };
 watch(() => windowsWidth.value, () => {
   if (windowsWidth.value >= 1024) {
-    setBarThickness.value = 40;
+    setBarThickness.value = 80;
   } else if (windowsWidth.value >= 768 && windowsWidth.value < 1024) {
     setBarThickness.value = 40;
   } else {
