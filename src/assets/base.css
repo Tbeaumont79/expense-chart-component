@@ -3,7 +3,7 @@
   font-family: "DM_Sans";
   font-style: normal;
   font-weight: 400; /* and 700 */
-  src: url("fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
+  src: url("/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
     format("truetype");
 }
 
